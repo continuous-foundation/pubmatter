@@ -352,6 +352,8 @@
   if (open-access != none) { out.open-access = open-access }
   let venue = validateString(raw, "venue")
   if (venue != none) { out.venue = venue }
+  let subject = validateString(raw, "subject")
+  if (subject != none) { out.subject = subject }
   let license = validateLicense(raw)
   if (license != none) { out.license = license }
   let doi = validateString(raw, "doi")
