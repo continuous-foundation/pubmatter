@@ -2,8 +2,8 @@
 
 _Beautiful scientific documents with structured metadata for publishers_
 
-[![Documentation](https://img.shields.io/badge/typst-docs-orange.svg)](https://github.com/curvenote/pubmatter/blob/main/docs.pdf)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/curvenote/pubmatter/blob/main/LICENSE)
+[![Documentation](https://img.shields.io/badge/typst-docs-orange.svg)](https://github.com/continuous-foundation/pubmatter/blob/main/docs.pdf)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/continuous-foundation/pubmatter/blob/main/LICENSE)
 
 Pubmatter is a typst library for parsing, normalizing and showing scientific publication frontmatter.
 
@@ -13,23 +13,23 @@ Utilities for loading, normalizing and working with authors, affiliations, abstr
 
 Pubmatter was used to create these documents, for loading the authors in a standardized way and creating the common elements (authors, affiliations, ORCIDs, DOIs, Open Access Links, copyright statements, etc.)
 
-![](https://github.com/curvenote/pubmatter/blob/main/images/lapreprint.png?raw=true)
+![](https://github.com/continuous-foundation/pubmatter/blob/main/images/lapreprint.png?raw=true)
 
-![](https://github.com/curvenote/pubmatter/blob/main/images/scipy.png?raw=true)
+![](https://github.com/continuous-foundation/pubmatter/blob/main/images/scipy.png?raw=true)
 
-![](https://github.com/curvenote/pubmatter/blob/main/images/agrogeo.png?raw=true)
+![](https://github.com/continuous-foundation/pubmatter/blob/main/images/agrogeo.png?raw=true)
 
 ## Documentation
 
-The full documentation can be found in [docs.pdf](https://github.com/curvenote/pubmatter/blob/main/docs.pdf). To use `pubmatter` import it:
+The full documentation can be found in [docs.pdf](https://github.com/continuous-foundation/pubmatter/blob/main/docs.pdf). To use `pubmatter` import it:
 
 ```typst
 #import "@preview/pubmatter:0.1.0"
 ```
 
-The docs also use `pubmatter`, in a simplified way, you can see the [docs.typ](https://github.com/curvenote/pubmatter/blob/main/docs.typ) to see a simple example of using various components to create a new document. Here is a preview of the docs:
+The docs also use `pubmatter`, in a simplified way, you can see the [docs.typ](https://github.com/continuous-foundation/pubmatter/blob/main/docs.typ) to see a simple example of using various components to create a new document. Here is a preview of the docs:
 
-[![](https://github.com/curvenote/pubmatter/blob/main/images/pubmatter.png?raw=true)](https://github.com/curvenote/pubmatter/blob/main/docs.pdf)
+[![](https://github.com/continuous-foundation/pubmatter/blob/main/images/pubmatter.png?raw=true)](https://github.com/continuous-foundation/pubmatter/blob/main/docs.pdf)
 
 ### Loading Frontmatter
 
@@ -66,7 +66,7 @@ You can also use a `dictionary` directly:
 #pubmatter.show-author-block(fm)
 ```
 
-![](https://github.com/curvenote/pubmatter/blob/main/images/author-block.png?raw=true)
+![](https://github.com/continuous-foundation/pubmatter/blob/main/images/author-block.png?raw=true)
 
 ### Theming
 
@@ -149,7 +149,7 @@ Note that you will usually write the affiliations directly in line, in the follo
 #raw(lang:"yaml", yaml.encode(fm))
 ```
 
-![](https://github.com/curvenote/pubmatter/blob/main/images/normalized.png?raw=true)
+![](https://github.com/continuous-foundation/pubmatter/blob/main/images/normalized.png?raw=true)
 
 ### Full List of Functions
 
@@ -177,4 +177,4 @@ Note that you will usually write the affiliations directly in line, in the follo
 ## Contributing
 
 To help with standardization of metadata or improve the show-functions please contribute to this package: \
-https://github.com/curvenote/pubmatter
+https://github.com/continuous-foundation/pubmatter
