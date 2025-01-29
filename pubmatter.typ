@@ -353,7 +353,7 @@
 /// Default an open-access badge and the DOI and then the running-title and citation
 ///
 /// ```example
-/// #pubmatter.show-page-header(theme: (font: "Noto Sans"), fm)
+/// #pubmatter.show-page-header(fm)
 /// ```
 ///
 /// - fm (fm): The frontmatter object
