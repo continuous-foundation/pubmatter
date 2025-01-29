@@ -43,7 +43,7 @@
 /// Create a ROR link
 ///
 /// ```example
-/// #pubmatter.ror-link(ror: "03zbydc22")
+/// #pubmatter.ror-link(ror: "02mz0e468")
 /// ```
 ///
 /// - ror (str): Only include the ROR identifier, not the URL
@@ -275,7 +275,8 @@
           affiliation.institution
         }
         if ("ror" in affiliation) {
-          " " + ror-link(ror: affiliation.ror)
+          text(size: 8pt, [~]) // Ensure this is not a linebreak
+          ror-link(ror: affiliation.ror)
         }
       }).join(", ")
     })
@@ -362,7 +363,7 @@
           #text(
             size: 9pt, fill: gray.darken(50%)
           )[
-            #counter(page).display() of #{context {counter(page).final(here()).first()}}
+            #counter(page).display() of #{context {counter(page).final().first()}}
           ]
         ]
       )
