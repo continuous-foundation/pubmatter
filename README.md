@@ -142,7 +142,7 @@ Note that you will usually write the affiliations directly in line, in the follo
     ),
     (
       name: "Steve Purves",
-      affiliations: ("Executable Books", "Curvenote Inc."),
+      affiliations: ("Project Jupyter", "Curvenote Inc."),
     ),
   ),
 ))

@@ -14,7 +14,7 @@
       email: "rowan@curvenote.com",
       orcid: "0000-0002-7859-8394",
       github: "rowanc1",
-      affiliations: ("Curvenote Inc.", "Executable Books"),
+      affiliations: ("Curvenote Inc.", "Continuous Science Foundation", "Project Jupyter"),
     ),
   ),
   open-access: true,
@@ -171,7 +171,7 @@ Note that you will usually write the affiliations directly in line, in the follo
     ),
     (
       name: "Steve Purves",
-      affiliations: ("Executable Books", "Curvenote Inc."),
+      affiliations: ("Project Jupyter", "Curvenote Inc."),
     ),
   ),
 ))
