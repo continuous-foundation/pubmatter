@@ -14,7 +14,7 @@
       email: "rowan@curvenote.com",
       orcid: "0000-0002-7859-8394",
       github: "rowanc1",
-      affiliations: ("Curvenote Inc.", "Continuous Science Foundation", "Project Jupyter"),
+      affiliations: ((name: "Curvenote Inc.", ror: "02mz0e468"), "Continuous Science Foundation", "Project Jupyter"),
     ),
   ),
   open-access: true,
