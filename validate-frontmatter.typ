@@ -140,10 +140,10 @@
     raw.affiliations = raw.affiliation
   }
   if ("affiliations" not in raw) { return; }
-  if (type(raw.affiliations) == str or type(raw.affiliations) == "dictionary") {
+  if (type(raw.affiliations) == str or type(raw.affiliations) == dictionary) {
     // convert to a list
     return (validateAffiliation(raw.affiliations),)
-  } else if (type(raw.affiliations) == "array") {
+  } else if (type(raw.affiliations) == array) {
     // validate each entry
     return raw.affiliations.map(validateAffiliation)
   } else {
@@ -332,10 +332,10 @@
     raw.authors = raw.author
   }
   if ("authors" in raw) {
-    if (type(raw.authors) == str or type(raw.authors) == "dictionary") {
+    if (type(raw.authors) == str or type(raw.authors) == dictionary) {
       // convert to a list
       out.authors = (validateAuthor(raw.authors),)
-    } else if (type(raw.authors) == "array") {
+    } else if (type(raw.authors) == array) {
       // validate each entry
       out.authors = raw.authors.map(validateAuthor)
     } else {
