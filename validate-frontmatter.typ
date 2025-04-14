@@ -306,7 +306,7 @@
     panic("Unknown license string: '" + rawLicense + "'")
   }
   if (type(rawLicense) == dictionary) {
-    assert("id" in rawLicense and "url" in rawLicense and "name" in rawLicense, message: "License nust contain fields of 'id' (the SPDX ID), 'url': the URL to the license, and 'name' the human-readable license name")
+    assert("id" in rawLicense and "url" in rawLicense and "name" in rawLicense, message: "License must contain fields of 'id' (the SPDX ID), 'url': the URL to the license, and 'name' the human-readable license name")
     let id = validateString(rawLicense, "id")
     let url = validateString(rawLicense, "url")
     let name = validateString(rawLicense, "name")
