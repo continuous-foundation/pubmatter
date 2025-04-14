@@ -414,7 +414,7 @@
 /// -> content
 #let show-abstracts(fm) = {
   let abstracts
-  if (type(fm) == "content") {
+  if (type(fm) == content) {
     abstracts = ((title: "Abstract", content: fm),)
   } else if (type(fm) == dictionary and "abstracts" in fm) {
     abstracts = fm.abstracts
