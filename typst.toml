@@ -1,6 +1,6 @@
 [package]
 name = "pubmatter"
-version = "0.2.0"
+version = "0.2.1"
 entrypoint = "pubmatter.typ"
 authors = ["rowanc1"]
 license = "MIT"
