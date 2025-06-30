@@ -1,4 +1,4 @@
-#import "@preview/scienceicons:0.0.6": orcid-icon, email-icon, open-access-icon, github-icon, cc-icon, cc-zero-icon, cc-by-icon, cc-nc-icon, cc-nd-icon, cc-sa-icon, ror-icon
+#import "@preview/scienceicons:0.1.0": orcid-icon, email-icon, open-access-icon, github-icon, cc-icon, cc-zero-icon, cc-by-icon, cc-nc-icon, cc-nd-icon, cc-sa-icon, ror-icon
 #import "./validate-frontmatter.typ": load, show-citation
 
 #let THEME = state("THEME", (color: blue.darken(20%), font: ""))
