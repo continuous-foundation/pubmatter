@@ -259,7 +259,13 @@
 /// - show-ror (boolean): Show ror logo
 /// - affiliations (fm, array): The frontmatter object or affiliations directly
 /// -> content
-#let show-affiliations(size: 8pt, fill: gray.darken(50%), show-ror: true, affiliations) = {
+#let show-affiliations(
+  size: 8pt, 
+  fill: gray.darken(50%), 
+  show-ror: true, 
+  separator: ", ",
+  affiliations
+  ) = {
   // Allow to pass frontmatter as well
   let affiliations = if (type(affiliations) == dictionary and "affiliations" in affiliations) {affiliations.affiliations} else { affiliations }
   if affiliations.len() == 0 { return none }
@@ -278,7 +284,7 @@
           text(size: 8pt, [~]) // Ensure this is not a linebreak
           ror-link(ror: affiliation.ror)
         }
-      }).join(", ")
+      }).join(separator)
     })
   })
 }
