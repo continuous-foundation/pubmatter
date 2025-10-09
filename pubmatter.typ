@@ -193,6 +193,38 @@
     }.]
 }
 
+/// Get corresponding author
+///
+/// Returns the first author marked as corresponding author, or the first author with an email.
+///
+/// ```example
+/// #let author = pubmatter.get-corresponding-author(authors)
+/// ```
+///
+/// - authors (fm, array): The frontmatter object or authors directly
+/// -> dictionary
+#let get-corresponding-author(authors) = {
+  // Allow to pass frontmatter as well
+  let authors = if (type(authors) == dictionary and "authors" in authors) {authors.authors} else { authors }
+  if authors.len() == 0 { return none }
+
+  // First, look for an author with corresponding: true
+  for author in authors {
+    if ("corresponding" in author and author.corresponding == true) {
+      return author
+    }
+  }
+
+  // If none found, look for first author with email that doesn't have corresponding: false
+  for author in authors {
+    if ("email" in author and ("corresponding" not in author or author.corresponding != false)) {
+      return author
+    }
+  }
+
+  return none
+}
+
 /// Show authors
 ///
 /// ```example
