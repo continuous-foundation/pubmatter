@@ -166,7 +166,6 @@
   if (email != none) { out.email = email }
   let corresponding = validateBoolean(raw, "corresponding")
   if (corresponding != none) { out.corresponding = corresponding }
-  else if (email != none) { out.corresponding = true }
   let phone = validateString(raw, "phone")
   if (phone != none) { out.phone = phone }
   let fax = validateString(raw, "fax")
