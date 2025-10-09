@@ -295,11 +295,12 @@
 /// - fill (color): Color of of the affiliations text
 /// - show-ror (boolean): Show ror logo
 /// - show-equal-contributor (boolean): Show equal contributor note
+/// - separator (str): Separator between affiliations
 /// - affiliations (fm, array): The frontmatter object or affiliations directly
 /// -> content
 #let show-affiliations(
-  size: 8pt, 
-  fill: gray.darken(50%), 
+  size: 8pt,
+  fill: gray.darken(50%),
   show-ror: true,
   show-equal-contributor: true,
   separator: ", ",
