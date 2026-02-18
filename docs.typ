@@ -107,7 +107,9 @@ For example, this document has the following theme set:
 
 Note that for the `header` the theme must be passed in directly. This will hopefully become easier in the future, however, there is a current bug that removes the page header/footer if you set this above the `set page`. See #link("https://github.com/typst/typst/issues/2987")[\#2987].
 
-The `font` option only corresponds to the frontmatter content (abstracts, title, header/footer etc.) allowing the body of your document to have a different font choice.
+The `font` option corresponds to the frontmatter content (abstracts, authors, header/footer etc.). Optional `title-font` uses a separate font for the main title when set (e.g. `title-font: "Noto Sans"`); if unset, the title uses `font`. This allows the document body to have a different font from the frontmatter, and the title to differ from both.
+
+Optional body typography keys `body-size`, `body-weight`, `body-leading`, and `body-tracking` control the main body and frontmatter running text (abstracts, keywords, header/footer). When set in the theme, they are used by `show-abstracts`, `show-keywords`, `show-page-header`, and `show-page-footer`. Defaults: `body-size: 9pt`, `body-weight: "regular"`, `body-leading: 0.65em`, `body-tracking: 0em`.
 
 #pagebreak()
 

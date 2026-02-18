@@ -1,7 +1,15 @@
 #import "@preview/scienceicons:0.1.0": orcid-icon, email-icon, open-access-icon, github-icon, cc-icon, cc-zero-icon, cc-by-icon, cc-nc-icon, cc-nd-icon, cc-sa-icon, ror-icon
 #import "./validate-frontmatter.typ": load, show-citation
 
-#let THEME = state("THEME", (color: blue.darken(20%), font: ""))
+#let THEME = state("THEME", (
+  color: blue.darken(20%),
+  font: "",
+  title-font: "",
+  body-size: 9pt,
+  body-weight: "regular",
+  body-leading: 0.65em,
+  body-tracking: 0em,
+))
 
 #let with-theme(func) = context {
   let theme = THEME.at(here())
@@ -368,11 +376,12 @@
 /// -> content
 #let show-title(fm) = {
   with-theme(theme => {
-    set text(font: theme.font)
+    let title_font = if ("title-font" in theme and theme.title-font != "") { theme.title-font } else { theme.font }
+    set text(font: title_font)
     let title = if (type(fm) == dictionary and "title" in fm) {fm.title} else if (type(fm) == str or type(fm) == content) { fm } else { none }
     let subtitle = if (type(fm) == dictionary and "subtitle" in fm) {fm.subtitle} else { none }
     if (title != none) {
-      box(inset: (bottom: 2pt), width: 100%, text(17pt, weight: "bold", fill: theme.color, title))
+      box(inset: (bottom: 2pt), width: 100%, text(17pt, font: title-font, weight: "bold", fill: theme.color, title))
     }
     if (subtitle != none) {
       parbreak()
@@ -412,18 +421,16 @@
     stroke: (top: 1pt + gray),
     inset: (top: 8pt, right: 2pt),
     with-theme((theme) => [
-      #set text(font: theme.font)
+      #set text(font: theme.font, size: theme.at("body-size", default: 9pt), weight: theme.at("body-weight", default: "regular"), tracking: theme.at("body-tracking", default: 0em))
       #grid(columns: (75%, 25%),
-        align(left, text(size: 9pt, fill: gray.darken(50%),
+        align(left, text(fill: gray.darken(50%),
             show-spaced-content((
               if("venue" in fm) {emph(fm.venue)},
               if("date" in fm and fm.date != none) {fm.date.display("[month repr:long] [day], [year]")}
             ))
         )),
         align(right)[
-          #text(
-            size: 9pt, fill: gray.darken(50%)
-          )[
+          #text(fill: gray.darken(50%))[
             #counter(page).display() of #{context {counter(page).final().first()}}
           ]
         ]
@@ -452,10 +459,10 @@
     // TODO: There is a bug in the first page state update
     // https://github.com/typst/typst/issues/2987
     return with-theme((theme) => {
-      align(left, text(size: 8pt, font: theme.font, fill: gray, show-spaced-content(headers)))
+      align(left, text(size: theme.at("body-size", default: 9pt), font: theme.font, fill: gray, show-spaced-content(headers)))
     })
   } else {
-    return  with-theme((theme) => {align(right + top, box(inset: (top: 1cm), text(size: 8pt, font: theme.font, fill: gray.darken(50%),
+    return  with-theme((theme) => {align(right + top, box(inset: (top: 1cm), text(size: theme.at("body-size", default: 9pt), font: theme.font, fill: gray.darken(50%),
       show-spaced-content((
         if ("short-title" in fm) { fm.short-title } else if ("title" in fm) { fm.title },
         if ("citation" in fm) { fm.citation },
@@ -484,12 +491,16 @@
   }
 
   with-theme((theme) => {
+    let body-size = theme.at("body-size", default: 9pt)
+    let body-weight = theme.at("body-weight", default: "regular")
+    let body-tracking = theme.at("body-tracking", default: 0em)
+    let body-leading = theme.at("body-leading", default: 0.65em)
     abstracts.map(abs => {
-      set text(font: theme.font)
-      text(fill: theme.color, weight: "semibold", size: 9pt, abs.title)
+      set text(font: theme.font, size: body-size, weight: body-weight, tracking: body-tracking)
+      text(fill: theme.color, weight: "semibold", abs.title)
       parbreak()
-      set par(justify: true)
-      text(size: 9pt, abs.content)
+      set par(justify: true, leading: body-leading)
+      text(abs.content)
     }).join(parbreak())
   })
 }
@@ -511,7 +522,11 @@
   }
   if (keywords.len() > 0) {
     with-theme((theme) => {
-      text(size: 9pt, font: theme.font, {
+      let body-size = theme.at("body-size", default: 9pt)
+      let body-weight = theme.at("body-weight", default: "regular")
+      let body-tracking = theme.at("body-tracking", default: 0em)
+      set text(size: body-size, font: theme.font, weight: body-weight, tracking: body-tracking)
+      text({
         text(fill: theme.color, weight: "semibold", "Keywords")
         h(8pt)
         keywords.join(", ")
