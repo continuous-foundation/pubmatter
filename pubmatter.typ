@@ -233,6 +233,43 @@
   return none
 }
 
+#let normalize-orcid(orcid) = {
+  if (type(orcid) != str) { return none }
+  if (orcid.starts-with("https://orcid.org/")) {
+    return orcid.slice(18)
+  }
+  orcid
+}
+
+#let resolve-affiliation-name(affiliation, fm) = {
+  if (type(affiliation) == str and affiliation != "") {
+    return affiliation
+  }
+  if (type(affiliation) == dictionary) {
+    if ("name" in affiliation) { return affiliation.name }
+    if ("institution" in affiliation) { return affiliation.institution }
+    if ("index" in affiliation and type(fm) == dictionary and "affiliations" in fm) {
+      let hit = fm.affiliations.filter(item => item.index == affiliation.index).at(0, default: none)
+      if (hit != none and "name" in hit) { return hit.name }
+      if (hit != none and "institution" in hit) { return hit.institution }
+    }
+  }
+  if (type(fm) == dictionary and "affiliations" in fm) {
+    let hit = fm.affiliations.filter(item => item.index == affiliation).at(0, default: none)
+    if (hit != none and "name" in hit) { return hit.name }
+    if (hit != none and "institution" in hit) { return hit.institution }
+  }
+  none
+}
+
+#let author-affiliations-text(author, fm) = {
+  if ("affiliations" not in author) { return none }
+  let items = if (type(author.affiliations) == array) { author.affiliations } else { (author.affiliations,) }
+  let names = items.map(item => resolve-affiliation-name(item, fm)).filter(item => item != none and item != "")
+  if (names.len() == 0) { return none }
+  names.join("; ")
+}
+
 /// Show authors
 ///
 /// ```example
@@ -288,6 +325,54 @@
           email-link(email: author.email)
         }
       }).join(", ", last: ", and ")
+    })
+  })
+}
+
+#let show-authors-boxed(
+  size: 10pt,
+  weight: "semibold",
+  show-orcid: true,
+  show-email: true,
+  show-github: true,
+  fm,
+) = {
+  let authors = if (type(fm) == dictionary and "authors" in fm) { fm.authors } else if (type(fm) == array) { fm } else { () }
+  if authors.len() == 0 { return none }
+  let columns = if (authors.len() == 1) { (1fr,) } else if (authors.len() <= 4) { (1fr, 1fr) } else { (1fr, 1fr, 1fr) }
+
+  return box(inset: (top: 10pt, bottom: 5pt), width: 100%, {
+    with-theme((theme) => {
+      grid(columns: columns, gutter: (8pt, 8pt), ..authors.map(author => {
+        box(
+          inset: (x: 8pt, y: 7pt),
+          width: 100%,
+          {
+            set text(size, font: theme.font)
+            text(weight: weight, author.name)
+            let affiliation-line = author-affiliations-text(author, fm)
+            if (affiliation-line != none) {
+              parbreak()
+              text(size: size - 1pt, fill: gray.darken(45%), affiliation-line)
+            }
+            let identifiers = (
+              if (show-orcid and "orcid" in author and normalize-orcid(author.orcid) != none) {
+                [#orcid-link(orcid: author.orcid)#h(3pt)#normalize-orcid(author.orcid)]
+              },
+              if (show-github and "github" in author) {
+                [#github-link(github: author.github)#h(3pt)#author.github]
+              },
+              if (show-email and "email" in author) {
+                [#email-link(email: author.email)#h(3pt)#author.email]
+              },
+            )
+            if (identifiers.filter(item => item != none).len() > 0) {
+              parbreak()
+              text(size: size - 1pt, fill: gray.darken(20%), show-spaced-content(identifiers))
+            }
+          },
+        )
+      }))
     })
   })
 }
@@ -361,9 +446,14 @@
 ///
 /// - fm (fm): The frontmatter object
 /// -> content
-#let show-author-block(fm) = {
-  show-authors(fm)
-  show-affiliations(fm)
+#let show-author-block(max-box-authors: 6, fm) = {
+  let authors = if (type(fm) == dictionary and "authors" in fm) { fm.authors } else { () }
+  if (authors.len() > 0 and authors.len() <= max-box-authors) {
+    show-authors-boxed(fm)
+  } else {
+    show-authors(fm)
+    show-affiliations(fm)
+  }
 }
 
 /// Show title and subtitle
@@ -545,6 +635,5 @@
 /// -> content
 #let show-abstract-block(fm) = {
   box(inset: (top: 16pt, bottom: 16pt), stroke: (top: 0.5pt + gray.lighten(30%), bottom: 0.5pt + gray.lighten(30%)), show-abstracts(fm))
-  show-keywords(fm)
   v(10pt)
 }
